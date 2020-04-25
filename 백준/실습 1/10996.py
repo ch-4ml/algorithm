@@ -7,4 +7,3 @@ for i in range(2 * n):
     if n == 1:
         break
     print()
-
