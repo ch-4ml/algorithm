@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('4839_input.txt', 'r')
+sys.stdin = open('input/4839_input.txt', 'r')
 
 def binary_search(l, r, target, count):
     c = int((l + r) / 2)

@@ -1,5 +1,5 @@
 import sys
-sys.stdin = open('11545_input.txt', 'r')
+sys.stdin = open('input/11545_input.txt', 'r')
 
 def check(line):
     return 'X' if line.count('X') + line.count('T') == 4 else \
@@ -7,7 +7,7 @@ def check(line):
            'Draw' if line.count('.') == 0 else 'Not Completed'
 
 T = int(input())
-# 여러개의 테스트 케이스가 주어지므로, 각각을 처리합니다.
+
 for test_case in range(1, T + 1):
     game = []
     for i in range(4):
