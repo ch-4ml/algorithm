@@ -17,7 +17,7 @@ for test_case in range(1, T + 1):
     stack.append(s)
     visited[s-1] = True
     while stack:
-        l_idx = [ i for i in range(len(l_start)) if l_start[i] == stack[-1] and not visited[l_finish[i]-1] ]
+        l_idx = [ i for i in range(e) if l_start[i] == stack[-1] and not visited[l_finish[i]-1] ]
         if len(l_idx) > 0:
             stack.append(l_finish[l_idx[0]])
             visited[l_finish[l_idx[0]] - 1] = True
