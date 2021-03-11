@@ -45,11 +45,14 @@ for test_case in range(1, T + 1):
     queue = []
     result = 9999
 
-    search(start_edges, target, 1)
+    queue.append(search(start_edges, target, 1))
 
     while queue:
         depth = queue.pop()
         if depth < result:
             result = depth
     
+    if result == 9999:
+        result = 0
+
     print('#{} {}'.format(test_case, result))
