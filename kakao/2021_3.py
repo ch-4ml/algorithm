@@ -1,5 +1,5 @@
 def solution(info, query):
-    scores = {}  # 해당 지원자 그룹에 포함된 지원자의 점수 dict { index: list }
+    scores = {}  # 해당 지원자 그룹에 포함된 지원자의 점수 dict { group: list }
     answer = []
 
     # Groups Table 만들기
