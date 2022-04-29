@@ -1,0 +1,1 @@
+print(sum([pow(n, 2) for n in list(map(int, input().split()))]) % 10)
