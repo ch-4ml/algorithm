@@ -13,10 +13,12 @@ sys.stdin = open("input/" + filename + "_input.txt", "r")
     아래에 코드 작성
 '''
 
+
 def swap(lst, select_index, target_index):
     l = lst[::]
     l[select_index], l[target_index] = l[target_index], l[select_index]
     return l 
+
 
 T = int(input())
 for test_case in range(1, T+1):
