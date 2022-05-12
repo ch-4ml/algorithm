@@ -7,7 +7,7 @@ import sys
 
 f = inspect.getfile(inspect.currentframe())
 filename = f.split("\\")[-1].split(".")[0]
-sys.stdin = open('input/' + filename + '_input.txt', 'r')
+sys.stdin = open("input/" + filename + "_input.txt", "r")
 
 '''
     아래에 코드 작성
