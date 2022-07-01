@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-class Solution
+class SimpleTemplate
 {
 	public static void main(String args[]) throws Exception
 	{
