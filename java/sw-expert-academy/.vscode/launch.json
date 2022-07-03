@@ -6,6 +6,34 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch OtherSolution1961",
+      "request": "launch",
+      "mainClass": "OtherSolution1961",
+      "projectName": "sw-expert-academy_6e396945"
+    },
+    {
+      "type": "java",
+      "name": "Launch Solution1961",
+      "request": "launch",
+      "mainClass": "Solution1961",
+      "projectName": "sw-expert-academy_6e396945"
+    },
+    {
+      "type": "java",
+      "name": "Launch Solution2001",
+      "request": "launch",
+      "mainClass": "Solution2001",
+      "projectName": "sw-expert-academy_6e396945"
+    },
+    {
+      "type": "java",
+      "name": "Launch SimpleTemplate",
+      "request": "launch",
+      "mainClass": "SimpleTemplate",
+      "projectName": "sw-expert-academy_6e396945"
+    },
+    {
+      "type": "java",
       "name": "Launch Current File",
       "request": "launch",
       "mainClass": "${file}"
