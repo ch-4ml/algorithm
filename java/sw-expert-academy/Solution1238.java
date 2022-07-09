@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
@@ -38,23 +37,24 @@ class Solution1238 {
 
             ArrayList<Integer> currentNodes = new ArrayList<Integer>();
             ArrayList<Integer> nextNodes = new ArrayList<Integer>();
-            currentNodes.add(startId);
+            nextNodes.add(startId);
             visited[startId-1] = true;
-            while(currentNodes.size() > 0) {
-                for(int i = 0; i < currentNodes.size(); i++) {
-                    nextNodes = new ArrayList<Integer>();
-                    ArrayList<Integer> targets = nodes.get(currentNodes.get(i));
-                    System.out.print(targets.toString());
-                    for(Integer target: targets) {
+            
+            while(nextNodes.size() > 0) {
+                currentNodes = new ArrayList<Integer>();
+                for(int i = 0; i < nextNodes.size(); i++) {
+                    ArrayList<Integer> targets = nodes.get(nextNodes.get(i));
+                    if(targets == null) continue;
+                    for(int j = 0; j < targets.size(); j++) {
+                        int target = targets.get(j);
                         if(!visited[target-1]) {
-                            nextNodes.add(target);
+                            currentNodes.add(target);
                             visited[target-1] = true;
                         }
                     }
-                    System.out.println(" / " + nextNodes.toString());
                 }
-
-                currentNodes = nextNodes;
+                if(currentNodes.size() < 1) break;
+                nextNodes = currentNodes;
             }
 
             int result = -1;
