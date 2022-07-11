@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch Solution1247",
+      "request": "launch",
+      "mainClass": "Solution1247",
+      "projectName": "sw-expert-academy_6e396945"
+    },
+    {
+      "type": "java",
       "name": "Launch Solution1238",
       "request": "launch",
       "mainClass": "Solution1238",
