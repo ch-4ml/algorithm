@@ -28,8 +28,8 @@ class Solution1247
 		sc.close();
 	}
 
-    static int getDistance(int[] customer1, int[] customer2) {
-        return Math.abs(customer1[0] - customer2[0]) + Math.abs(customer1[1] - customer2[1]);
+    static int getDistance(int[] a, int[] b) {
+        return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
     }
 
     static int getResult(int[] work, int[] home, int[][] customers) {
@@ -46,48 +46,49 @@ class Solution1247
         }
 
         ArrayList<Integer> stack = new ArrayList<Integer>();
-        
-
-        int depth = -1;
+        int depth = 0;
         do {
-            depth++;
-            int visitIndex = indexOf(visited[depth]);   
-            current[visitIndex] = true;         
-            int currentIndex = indexOf(current);
+            int currentIndex;
+            boolean[] tmpCurrent = current.clone();
+            // 선택한 index가 이미 현재 depth에서 방문한 index가 아닌 경우만 실행
+            do {
+                currentIndex = indexOf(tmpCurrent);
+                if(currentIndex < 0) break;
+                tmpCurrent[currentIndex] = true;
+            } while(visited[depth][currentIndex]);
             
-            if(depth < N-1 && currentIndex > -1) {
-                // push, continue
-                visited[depth][visitIndex] = true;
+            // 아직 탐색하지 않은 index가 있을 때
+            if(currentIndex > -1) {
+                visited[depth][currentIndex] = true;
                 current[currentIndex] = true;
                 stack.add(currentIndex);
+                depth++;
                 continue;
             }
 
-            if(depth == N-1) {
+            if(stack.size() == N) {
                 // 거리 계산하고 result와 비교 후 작은 것으로 할당
                 int distance = 0;
                 for(int i = 1; i < stack.size(); i++) {  // 고객 사이 거리 계산
-                    int c1 = stack.get(i);
-                    int c2 = stack.get(i-1);
+                    int c1 = stack.get(i-1);
+                    int c2 = stack.get(i);
                     distance += getDistance(customers[c1], customers[c2]);
                 }
-                distance += getDistance(work, customers[0]);  // 회사에서 첫 번째 고객 사이 거리 계산
-                distance += getDistance(customers[N-1], home);  // 마지막 고객에서 집 사이 거리 계산
-                // System.out.println(distance);
+                
+                distance += getDistance(work, customers[stack.get(0)]);  // 회사에서 첫 번째 고객 사이 거리 계산
+                distance += getDistance(customers[stack.get(N-1)], home);  // 마지막 고객에서 집 사이 거리 계산
                 result = Math.min(result, distance);
             }
 
-            if(indexOf(current) < 0) {
-                if(depth < N-1) {
-                    for(int i = 0; i < N; i++) {
-                        visited[depth+1][i] = false;
-                    }
+            depth--;
+            if(depth < N-1) {
+                for(int i = 0; i < N; i++) {
+                    visited[depth+1][i] = false;
                 }
-                depth--;
-                stack.remove(stack.size()-1);
-                current[visitIndex] = false;
             }
-        } while(indexOf(visited[0]) > -1 && stack.size() > 0);
+            int lastIndex = stack.remove(stack.size()-1);
+            current[lastIndex] = false;      
+        } while(indexOf(visited[0]) > -1 || stack.size() > 0);
         return result;
     }
 
