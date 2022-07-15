@@ -1,7 +1,6 @@
-import java.util.List;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.BinaryOperator;
 import java.io.FileInputStream;
 
 class Solution1248 {
@@ -10,7 +9,7 @@ class Solution1248 {
 		Scanner sc = new Scanner(System.in);
 		int T = sc.nextInt();
 
-		for (int test_case = 1; test_case <= T; test_case++) {
+		for (int test_case = 1; test_case <= 1; test_case++) {
 			int V = sc.nextInt();
 			int E = sc.nextInt();
 			ArrayList<Integer> sVertices = new ArrayList<Integer>();
@@ -31,8 +30,11 @@ class Solution1248 {
 				for (int i = 0; i < 2; i++) {
 					int index = indexOf(sVertices, vertex);
 					if (index > 0) {
-
-					}
+						queue.add(fVertices.get(index));
+						sVertices.remove(index);
+						fVertices.remove(index);
+					} else
+						binaryTree.add(0);
 				}
 			}
 		}
