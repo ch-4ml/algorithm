@@ -5,9 +5,9 @@ import java.util.Scanner;
 import java.util.Map.Entry;
 import java.io.FileInputStream;
 
-class Solution1248 {
+class Solution {
 	public static void main(String args[]) throws Exception {
-		System.setIn(new FileInputStream("input/1248.txt"));
+		System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);
 		int T = sc.nextInt();
 
