@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Solution1249 {
+public class Solution {
     public static void main(String args[]) throws Exception
 	{
-		System.setIn(new FileInputStream("input/1249.txt"));
+		System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);
 		int T;
 		T = sc.nextInt();

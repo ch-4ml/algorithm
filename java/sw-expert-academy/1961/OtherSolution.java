@@ -1,10 +1,10 @@
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-public class OtherSolution1961 {
+public class OtherSolution {
     public static void main(String args[]) throws Exception
 	{
-		System.setIn(new FileInputStream("input/1961.txt"));
+		System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);
 		int T;
 		T = sc.nextInt();
