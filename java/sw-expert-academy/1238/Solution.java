@@ -7,10 +7,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.io.FileInputStream;
 
-class Solution1238 {
+class Solution {
 	public static void main(String args[]) throws Exception
 	{
-		System.setIn(new FileInputStream("input/1238.txt"));
+		System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);
 		int test_case = 0;
 

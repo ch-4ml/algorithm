@@ -2,13 +2,13 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-class Solution1974
+class Solution
 {
 	public static void main(String args[]) throws Exception
 	{
         final int OUTER = 9;
         final int INNER = 3;
-        System.setIn(new FileInputStream("input/1974.txt"));
+        System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);
 		int T;
 		T = sc.nextInt();

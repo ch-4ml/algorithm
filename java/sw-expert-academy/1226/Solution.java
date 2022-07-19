@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class Solution1226
+class Solution
 {
     final static int N = 16;
 
 	public static void main(String args[]) throws Exception
 	{
-		System.setIn(new FileInputStream("input/1226.txt"));
+		System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);
 		
         int T = 10;
