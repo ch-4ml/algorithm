@@ -1,3 +1,1 @@
-# 코딩테스트 기록/공부용 레포
-
-Python, C++
+# Algorithm-Java
