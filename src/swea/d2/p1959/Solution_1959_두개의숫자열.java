@@ -3,7 +3,7 @@ package swea.d2.p1959;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-class Solution_두개의숫자열
+class Solution_1959_두개의숫자열
 {
 	public static void main(String args[]) throws Exception
 	{

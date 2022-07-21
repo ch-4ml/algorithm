@@ -3,7 +3,7 @@ package swea.d2.p2001;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-class Solution_파리퇴치
+class Solution_2001_파리퇴치
 {
 	public static void main(String args[]) throws Exception
 	{

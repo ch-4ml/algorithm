@@ -2,7 +2,7 @@ package boj.s4.p2164_카드2;
 
 import java.util.Scanner;
 
-class Main {
+class Main_2164_카드2 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();

@@ -3,7 +3,7 @@ package swea.d2.p1979;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-class Solution_어디에단어가들어갈수있을까
+class Solution_1979_어디에단어가들어갈수있을까
 {
 	public static void main(String args[]) throws Exception
 	{

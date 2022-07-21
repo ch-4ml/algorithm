@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Solution_보급로 {
+public class Solution_1249_보급로 {
     public static void main(String args[]) throws Exception
 	{
 		System.setIn(new FileInputStream("input.txt"));

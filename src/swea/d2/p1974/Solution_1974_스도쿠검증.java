@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-class Solution_스도쿠검증
+class Solution_1974_스도쿠검증
 {
 	public static void main(String args[]) throws Exception
 	{

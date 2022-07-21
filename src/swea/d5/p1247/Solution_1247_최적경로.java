@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-class Solution_최적경로
+class Solution_1247_최적경로
 {
 	public static void main(String args[]) throws Exception
 	{

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-class Solution_미로1
+class Solution_1226_미로1
 {
     final static int N = 16;
 

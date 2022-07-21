@@ -7,7 +7,7 @@ import java.util.Scanner;
 import java.util.Map.Entry;
 import java.io.FileInputStream;
 
-class Solution_공통조상 {
+class Solution_1248_공통조상 {
 	public static void main(String args[]) throws Exception {
 		System.setIn(new FileInputStream("input.txt"));
 		Scanner sc = new Scanner(System.in);

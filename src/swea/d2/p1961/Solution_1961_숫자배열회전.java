@@ -3,7 +3,7 @@ package swea.d2.p1961;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-public class Solution_숫자배열회전 {
+public class Solution_1961_숫자배열회전 {
     public static void main(String args[]) throws Exception
 	{
 		System.setIn(new FileInputStream("input.txt"));
