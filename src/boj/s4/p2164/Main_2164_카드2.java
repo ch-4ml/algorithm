@@ -1,4 +1,4 @@
-package boj.s4.p2164_카드2;
+package boj.s4.p2164;
 
 import java.util.Scanner;
 
