@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 
 class Main_1920_수찾기 {
     public static void main(String args[]) throws Exception {
-        System.setIn(new FileInputStream("input.txt"));
+        System.setIn(new FileInputStream("src/boj/s4/p1920/input.txt"));
         Scanner sc = new Scanner(System.in);
         int N = sc.nextInt();
         
