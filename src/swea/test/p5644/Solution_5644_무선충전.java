@@ -86,7 +86,11 @@ public class Solution_5644_무선충전 {
 
 				// Sort by performance desc
 				Arrays.sort(bcs);
-
+				for(BatteryCharger b: bcs) {
+					System.out.println(b.isUsed + " " + b.performance);
+				}
+				System.out.println();
+				
 				int tmp = 0;
 
 				// 가장 큰 두 개 선택
@@ -102,8 +106,8 @@ public class Solution_5644_무선충전 {
 				}
 
 				System.out.println(i - 1 + ": " + tmp);
-				System.out.println(i - 1 + ". A: " + A.row + " " + A.col);
-				System.out.println(i - 1 + ". B: " + B.row + " " + B.col);
+//				System.out.println(i - 1 + ". A: " + A.row + " " + A.col);
+//				System.out.println(i - 1 + ". B: " + B.row + " " + B.col);
 
 				// Break
 				if (i == M + 1)
@@ -148,9 +152,8 @@ class BatteryCharger implements Comparable<BatteryCharger> {
 		
 		int weight = 0;
 		for (int i = row - coverage; i <= row + coverage; i++) {
-			if(i < 1 || i > 10) continue;
-			for (int j = col - weight; j <= col + weight; j++) {
-				if(j < 1 || j > 10) continue;
+			for (int j = col - weight; j <= col + weight; j++) {  // trouble shooting #1
+				if(i < 1 || i > 10 || j < 1 || j > 10) continue;  // trouble shooting #2
 				coverageAreaRow.add(i);
 				coverageAreaCol.add(j);
 			}
