@@ -26,19 +26,14 @@ public class Main_1074_Z {
 	}
 
 	public static void find(int n, int r, int c, int targetRow, int targetCol) {
-		
-		// 나누어지는 사각형의 범주에 target의 position이 존재하지 않는 경우
-		if (targetRow < r || targetRow >= r + n || targetCol < c || targetCol >= c + n || n == 1) {
-			// 사각형의 크기만큼 더하기
-			count += n * n;
-			return;
-		} else {
-			// 재귀 탐색
-			int i = 0;
-			while (r + dr[i] * n / 2 <= targetRow && c + dc[i] * n / 2 <= targetCol) { 
-				find(n / 2, r + dr[i] * n / 2, c + dc[i] * n / 2, targetRow, targetCol);
-				i++;
-			}
+		// 재귀 탐색
+		for (int i = 0; i < 4; i++) {
+			// 나누어지는 사각형의 범주에 target의 position이 존재하지 않는 경우
+			if (targetRow < r || targetRow >= r + n || targetCol < c || targetCol >= c + n || n == 1) {
+				// 사각형의 크기만큼 더하기
+				count += n * n;
+				return;
+			} else find(n / 2, r + dr[i] * n / 2, c + dc[i] * n / 2, targetRow, targetCol);
 		}
 	}
 }
