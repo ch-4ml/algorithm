@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -59,55 +60,35 @@ public class Solution_5644_무선충전 {
 			}
 
 			// Logic
-			// 매 시간마다 각 충전소의 영역에 포함되어있는 사람의 수를 저장하는 배열
-			int[] pFlag;
-			int sumFlag;
 			for (int i = 1; i <= M + 1; i++) {
-				pFlag = new int[C];
-				sumFlag = 0;
+
 				// Calculate (시작 위치의 경우를 포함해야 하기 때문에 계산을 먼저 수행함)
-				// BC를 반복해서 탐색하며 A와 B의 포함 여부를 검사
 				for (int j = 0; j < C; j++) {
 					if (bcs[j].isCovered(A.row, A.col)) {
-						pFlag[j] = pFlag[j] | 1;
-						bcs[j].isUsed = 1;
+						bcs[j].isCoveredA = 1;
 					}
 
 					if (bcs[j].isCovered(B.row, B.col)) {
-						pFlag[j] = pFlag[j] | 1;
-						bcs[j].isUsed = 1;
+						bcs[j].isCoveredB = 1;
 					}
 				}
 
-				// 모든 flag 값 더하기
+				int tmp = 0, max = 0;
+				tmp += getMaxPerformanceOfA(bcs);
+				tmp += getMaxPerformanceOfB(bcs);
+
+				max = tmp;
+
+				tmp = 0;
 				for (int j = 0; j < C; j++) {
-					sumFlag += pFlag[j];
+					bcs[j].useCount = 1;
 				}
 
-				// Sort by performance desc
-				Arrays.sort(bcs);
-				for(BatteryCharger b: bcs) {
-					System.out.println(b.isUsed + " " + b.performance);
-				}
-				System.out.println();
-				
-				int tmp = 0;
+				tmp += getMaxPerformanceOfB(bcs);
+				tmp += getMaxPerformanceOfA(bcs);
 
-				// 가장 큰 두 개 선택
-				if (sumFlag >= 2) {
-					tmp = bcs[0].performance + bcs[1].performance;
-					sum += tmp;
-				}
-
-				// 가장 큰 한 개 선택
-				else if (sumFlag == 1) {
-					tmp = bcs[0].performance;
-					sum += tmp;
-				}
-
-				System.out.println(i - 1 + ": " + tmp);
-//				System.out.println(i - 1 + ". A: " + A.row + " " + A.col);
-//				System.out.println(i - 1 + ". B: " + B.row + " " + B.col);
+				max = Math.max(max, tmp);
+				sum += max;
 
 				// Break
 				if (i == M + 1)
@@ -119,7 +100,9 @@ public class Solution_5644_무선충전 {
 
 				// Initialize isUsed field
 				for (int j = 0; j < C; j++) {
-					bcs[j].isUsed = 0;
+					bcs[j].isCoveredA = 0;
+					bcs[j].isCoveredB = 0;
+					bcs[j].useCount = 1;
 				}
 			}
 			sb.append(sum).append("\n");
@@ -129,14 +112,58 @@ public class Solution_5644_무선충전 {
 		out.flush();
 		out.close();
 	}
+
+	static int getMaxPerformanceOfA(BatteryCharger[] bcs) {
+
+		int result = 0;
+		Comparator<BatteryCharger> comparatorA = new Comparator<BatteryCharger>() {
+			@Override
+			public int compare(BatteryCharger o1, BatteryCharger o2) {
+				return o1.isCoveredA == o2.isCoveredA
+						? o1.useCount == o2.useCount ? o2.performance - o1.performance : o1.useCount - o2.useCount
+						: o2.isCoveredA - o1.isCoveredA;
+			}
+		};
+
+		Arrays.sort(bcs, comparatorA);
+		if (bcs[0].isCoveredA == 1 && bcs[0].useCount == 1) {
+			result = bcs[0].getPerformance();
+			bcs[0].useCount++;
+		}
+
+		return result;
+	}
+
+	static int getMaxPerformanceOfB(BatteryCharger[] bcs) {
+
+		int result = 0;
+		Comparator<BatteryCharger> comparatorB = new Comparator<BatteryCharger>() {
+			@Override
+			public int compare(BatteryCharger o1, BatteryCharger o2) {
+				return o1.isCoveredB == o2.isCoveredB
+						? o1.useCount == o2.useCount ? o2.performance - o1.performance : o1.useCount - o2.useCount
+						: o2.isCoveredB - o1.isCoveredB;
+			}
+		};
+
+		Arrays.sort(bcs, comparatorB);
+		if (bcs[0].isCoveredB == 1 && bcs[0].useCount == 1) {
+			result = bcs[0].getPerformance();
+			bcs[0].useCount++;
+		}
+
+		return result;
+	}
 }
 
-class BatteryCharger implements Comparable<BatteryCharger> {
-	int isUsed;
+class BatteryCharger {
+	int isCoveredA;
+	int isCoveredB;
 	int row;
 	int col;
 	int coverage;
 	int performance;
+	int useCount;
 	List<Integer> coverageAreaRow = new ArrayList<>();
 	List<Integer> coverageAreaCol = new ArrayList<>();
 
@@ -146,23 +173,22 @@ class BatteryCharger implements Comparable<BatteryCharger> {
 		this.row = row;
 		this.coverage = coverage;
 		this.performance = performance;
+		this.useCount = 1;
 
-//		System.out.println();
-//		System.out.println("Row: " + row + " Col: " + col);
-		
 		int weight = 0;
 		for (int i = row - coverage; i <= row + coverage; i++) {
-			for (int j = col - weight; j <= col + weight; j++) {  // trouble shooting #1
-				if(i < 1 || i > 10 || j < 1 || j > 10) continue;  // trouble shooting #2
+			for (int j = col - weight; j <= col + weight; j++) { // trouble shooting #1
+				if (i < 1 || i > 10 || j < 1 || j > 10)
+					continue; // trouble shooting #2
 				coverageAreaRow.add(i);
 				coverageAreaCol.add(j);
 			}
 			weight = i < row ? weight + 1 : weight - 1;
 		}
-		
-//		System.out.println();
-//		System.out.println(coverageAreaRow.toString());
-//		System.out.println(coverageAreaCol.toString());
+	}
+
+	int getPerformance() {
+		return performance / useCount;
 	}
 
 	boolean isCovered(int row, int col) {
@@ -171,11 +197,6 @@ class BatteryCharger implements Comparable<BatteryCharger> {
 				return true;
 		}
 		return false;
-	}
-
-	@Override
-	public int compareTo(BatteryCharger o) {
-		return o.isUsed == this.isUsed ? o.performance - this.performance : o.isUsed - this.isUsed;
 	}
 
 }
