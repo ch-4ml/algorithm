@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main_3025_돌던지기 {
@@ -47,25 +48,7 @@ public class Main_3025_돌던지기 {
 			// logic
 			if(dp[col][0] > 0) map[dp[col][0]][dp[col][1]] = 'O';
 
-			// 다시 이 col으로 떨어지면 왼쪽으로 굴러떨어질 위치 저장
-			if (col > 1 && dp[col - 1][0] >= dp[col][0]) {
-				
-				// 현재 col에 대한 dp 최신화
-				dp[col][0] = dp[col - 1][0];
-				dp[col][1] = col - 1;
-				
-				// 영향을 받는 col에 대한 dp 최신화
-				dp[col - 1][0] = 
-				
-			} else if (col < R && dp[col + 1][0] >= dp[col][0]) {
-				
-				// 현재 col에 대한 dp 최신화
-				dp[col][0] = dp[col + 1][0];
-				dp[col][1] = col + 1;
-				
-			} else {
-				dp[col][0]--;
-			}
+			dp[col] = dfs(dp, col);
 		}
 
 		for (int i = 1; i < R + 1; i++) {
@@ -78,5 +61,33 @@ public class Main_3025_돌던지기 {
 		out.write(sb.toString());
 		out.flush();
 		out.close();
+	}
+	
+	// 돌이 멈추는 위치를 찾아서 각 col에 해당하는 dp 값(dp[c][0], dp[c][1]) 변경
+	static int[] dfs(int[][] dp, int col) {
+		
+		// 종료 조건 추가
+		
+		if (col > 1 && dp[col - 1][0] >= dp[col][0]) {
+			// 현재 col에 대한 dp 최신화
+			dp[col][0] = dp[col - 1][0];
+			dp[col][1] = col - 1;
+
+			// 영향을 받는 col에 대한 dp 최신화
+			return dp[col] = dfs(dp, col - 1);
+			
+		} else if (col < dp.length && dp[col + 1][0] >= dp[col][0]) {
+			// 현재 col에 대한 dp 최신화
+			dp[col][0] = dp[col + 1][0];
+			dp[col][1] = col + 1;
+			
+			// 영향을 받는 col에 대한 dp 최신화
+			return dp[col] = dfs(dp, col + 1);
+		} else {
+			int[] result = new int[2];
+			result[0] = --dp[col][0];
+			result[1] = col;
+			return result;
+		}
 	}
 }
