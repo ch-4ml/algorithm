@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
@@ -44,7 +45,12 @@ public class Main {
 		int[] D = new int[V + 1];
 		boolean[] visited = new boolean[V + 1];
 		Node[] adjList = new Node[V + 1];
-		PriorityQueue<Vertex> pQueue = new PriorityQueue<>((v1, v2) -> v1.weight - v2.weight); 
+		PriorityQueue<Vertex> pQueue = new PriorityQueue<>(new Comparator<Vertex>() {
+			@Override
+			public int compare(Vertex o1, Vertex o2) {
+				return o1.weight - o2.weight;
+			}
+		}); 
 		
 		Arrays.fill(D, Integer.MAX_VALUE);
 		D[start] = 0;
