@@ -4,10 +4,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
+import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
 
+	static class Vertex {
+		int no, weight;
+
+		public Vertex(int no, int weight) {
+			super();
+			this.no = no;
+			this.weight = weight;
+		}
+	}
+	
 	static class Node {
 		int no, weight;
 		Node next;
@@ -33,9 +44,11 @@ public class Main {
 		int[] D = new int[V + 1];
 		boolean[] visited = new boolean[V + 1];
 		Node[] adjList = new Node[V + 1];
+		PriorityQueue<Vertex> pQueue = new PriorityQueue<>((v1, v2) -> v1.weight - v2.weight); 
 		
 		Arrays.fill(D, Integer.MAX_VALUE);
 		D[start] = 0;
+		pQueue.offer(new Vertex(start, 0));
 		
 		for (int i = 1; i <= E; i++) {
 			st = new StringTokenizer(in.readLine());
@@ -46,30 +59,18 @@ public class Main {
 			adjList[from] = new Node(to, weight, adjList[from]);
 		}
 		
-		for(int i = 1; i <= V; i++) {
-			int min = Integer.MAX_VALUE;
-			int minVertex = -1;
-			
-			// 출발지로부터 가장 최소값 찾기
-			for(int j = 1; j <= V; j++) {
-				if(!visited[j] && min > D[j]) {
-					min = D[j];
-					minVertex = j;
-				}
-			}
-		
-			// 탐색 처리
-			if(minVertex < 0) continue;
-			visited[minVertex] = true;
+		while(!pQueue.isEmpty()) {			
+			Vertex vertex = pQueue.poll();
+			visited[vertex.no] = true;
 			
 			// 현재 탐색하고 있는 노드를 경유지로 했을 때 거리와 기존 최적 거리를 비교, 갱신
-			for(Node node = adjList[minVertex]; node != null; node = node.next) {
-				if(!visited[node.no] && D[node.no] > D[minVertex] + node.weight) {
-					D[node.no] = D[minVertex] + node.weight; 
+			for(Node node = adjList[vertex.no]; node != null; node = node.next) {
+				if(!visited[node.no] && D[node.no] > D[vertex.no] + node.weight) {
+					D[node.no] = D[vertex.no] + node.weight; 
+					pQueue.offer(new Vertex(node.no, D[node.no]));
 				}
 			}
 		}
-		
 		
 		for (int i = 1; i <= V; i++) {
 			sb.append(D[i] < Integer.MAX_VALUE ? D[i] : "INF").append("\n");
