@@ -50,21 +50,7 @@ public class Solution_4013_특이한자석 {
 					int qSize = rotates.size();
 					while (qSize-- > 0) {
 						int idx = rotates.poll();
-						// 회전
-						if (rotateDir == 1) { // 시계방향
-//							System.out.println("시계 회전 확인");
-//							System.out.println(magnets[idx]);
-							magnets[idx].addFirst(magnets[idx].removeLast());
-//							System.out.println(magnets[idx]);
-//							System.out.println("-----");
-						} else {
-//							System.out.println("반시계 회전 확인");
-//							System.out.println(magnets[idx]);
-							magnets[idx].offer(magnets[idx].poll());
-//							System.out.println(magnets[idx]);
-//							System.out.println("-----");
-						}
-
+						
 						// 왼쪽에 자석이 있으면 왼쪽 검사
 						if (idx > 1 && !visited[idx - 1]) {
 							tempList = new ArrayList<>(magnets[idx]);
@@ -72,6 +58,7 @@ public class Solution_4013_특이한자석 {
 							tempList = new ArrayList<>(magnets[idx - 1]);
 							int contact = tempList.get(RIGHT);
 							if(curLeft != contact) {
+								visited[idx - 1] = true;
 								rotates.offer(idx - 1);
 							}
 						}
@@ -83,9 +70,19 @@ public class Solution_4013_특이한자석 {
 							tempList = new ArrayList<>(magnets[idx + 1]);
 							int contact = tempList.get(LEFT);
 							if(curRight != contact) {
+								visited[idx + 1] = true;
 								rotates.offer(idx + 1);
 							}
 						}
+						
+						// 회전
+						if (rotateDir == 1) { // 시계방향
+							magnets[idx].addFirst(magnets[idx].removeLast());
+						} else {
+							magnets[idx].offer(magnets[idx].poll());
+						}
+
+						
 					}
 					rotateDir *= -1;
 				}
@@ -94,7 +91,6 @@ public class Solution_4013_특이한자석 {
 			int result = 0;
 			for(int i = 1; i <= SIZE; i++) {
 				if(magnets[i].peek() == 1) result += (int) Math.pow(2, i - 1);
-				System.out.println(magnets[i]);
 			}
 			
 			sb.append("#").append(t).append(" ").append(result).append("\n");
