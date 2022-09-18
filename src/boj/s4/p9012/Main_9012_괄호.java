@@ -1,4 +1,4 @@
-package boj.s5.p9012;
+package boj.s4.p9012;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
