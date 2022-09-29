@@ -23,9 +23,9 @@ public class Main {
 		}
 
 		// 동적 테이블 연산
-		for (int i = 1; i <= N; i++) { 
+		for (int i = 1; i <= N; i++) {
+			int rgb = -1;
 			for(int j = 0; j < 3; j++) {
-				int rgb = j - 1;
 				cost[i][++rgb % 3] = Math.min(cost[i - 1][++rgb % 3], cost[i - 1][++rgb % 3]) + cost[i][++rgb % 3];
 			}
 		}
