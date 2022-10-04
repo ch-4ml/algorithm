@@ -38,7 +38,7 @@ public class Main_3025_돌던지기 {
 
 		// Direction node 배열 초기화
 		for (int i = 1; i < C + 1; i++) {
-			Node 
+//			Node 
 		}
 		
 		for (int i = 1; i < C + 1; i++) {
