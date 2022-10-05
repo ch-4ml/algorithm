@@ -45,7 +45,7 @@ public class Main {
 			d = d == 1 ? -1 : d == 2 ? 1 : d == 3 ? 2 : -2;
 			
 			// 속력 변경(상어 위치 계산 시 반복 횟수 줄이기)
-//			s = (d == 1 || d == -1) ? s % (R * 2) : s % (C * 2); // error
+			s = (d == 1 || d == -1) ? s % (R * 2 - 2) : s % (C * 2 - 2);
 			
 			Shark shark = new Shark(s, d, z); 
 			before[r][c] = shark;
