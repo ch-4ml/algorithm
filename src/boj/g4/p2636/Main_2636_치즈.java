@@ -31,8 +31,11 @@ public class Main_2636_치즈 {
 					int[] pos = { i, j };
 					queue.add(pos);
 				}
-				
 			}
+		}
+		
+		while(!queue.isEmpty()) {
+			
 		}
 		
 		
