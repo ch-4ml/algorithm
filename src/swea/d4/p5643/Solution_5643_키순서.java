@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
@@ -16,11 +17,16 @@ public class Solution_5643_키순서 {
         Node next;
 
         public Node(int vertex, Node next) {
-            super();
             this.vertex = vertex;
             this.next = next;
         }
+
     }
+
+    static Node[] adjList;
+    static int[] enter;
+    static int[] leave;
+    static int N, M;
 
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -28,13 +34,13 @@ public class Solution_5643_키순서 {
         StringBuilder sb = new StringBuilder();
         StringTokenizer st;
 
-        // path를 저장하는 matrix 만들어서 모든 노드에 대해 참조하거나 참조 당하면 count
         int T = Integer.parseInt(in.readLine());
         for (int t = 1; t <= T; t++) {
-            int N = Integer.parseInt(in.readLine());
-            Node[] adjList = new Node[N];
-
-            int M = Integer.parseInt(in.readLine());
+            N = Integer.parseInt(in.readLine());
+            adjList = new Node[N + 1];
+            enter = new int[N + 1];
+            leave = new int[N + 1];
+            M = Integer.parseInt(in.readLine());
             for (int i = 0; i < M; i++) {
                 st = new StringTokenizer(in.readLine());
                 int from = Integer.parseInt(st.nextToken());
@@ -42,24 +48,39 @@ public class Solution_5643_키순서 {
                 adjList[from] = new Node(to, adjList[from]);
             }
             
-            boolean[][] path = new boolean[N][N];
-            for (int i = 0; i < N; i++) {
-                Queue<Integer> queue = new ArrayDeque<>();
-                boolean[] visited = new boolean[N];
-                queue.offer(i);
-                
-                while(!queue.isEmpty()) {
-                    int v = queue.poll();
-                    for (Node node = adjList[v]; node != null; node = node.next) {
-                        int n = node.vertex;
-                        if (!visited[n]) {
-                            visited[n] = true;
-                            path[i][n] = true;
-                        }
-                    }
+            for (int i = 1; i <= N; i++) {
+                bfs(i);
+            }
+            
+            int answer = 0;
+            for (int i = 1; i <= N; i++) {
+                if (enter[i] + leave[i] == N - 1) answer++;
+            }
+            
+            sb.append("#").append(t).append(" ").append(answer).append("\n");
+        }
+        out.write(sb.toString());
+        out.flush();
+        out.close();
+    }
+
+    static void bfs(int current) {
+        Queue<Integer> queue = new ArrayDeque<>();
+        boolean[] visited = new boolean[N + 1];
+        queue.offer(current);
+        visited[current] = true;
+        
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll();
+            for (Node node = adjList[vertex]; node != null; node = node.next) {
+                int next = node.vertex;
+                if (!visited[next]) {
+                    visited[next] = true;
+                    queue.offer(next);
+                    leave[current]++;
+                    enter[next]++;
                 }
             }
         }
-        
     }
 }
