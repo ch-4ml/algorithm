@@ -47,8 +47,8 @@ public class Main_1600_말이되고픈원숭이 {
 			}
 		}
 		
-		int ans = Math.min(a, b);
-		out.write(ans == inf ? "-1" : ans + "");
+		// int ans = Math.min(a, b);
+		// out.write(ans == inf ? "-1" : ans + "");
 	}
 	
 	static boolean checkBoundary(int r, int c, int R, int C) {
