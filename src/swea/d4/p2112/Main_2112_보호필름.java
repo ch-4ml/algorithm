@@ -25,7 +25,7 @@ public class Main_2112_보호필름 {
             D = Integer.parseInt(st.nextToken()); // 보호 필름의 두께
             W = Integer.parseInt(st.nextToken()); // 보호 필름의 가로 크기
             K = Integer.parseInt(st.nextToken()); // 합격 기준
-            
+            gmdk    
             board = new int[D][W];
             for (int i = 0; i < D; i++) {
                 st = new StringTokenizer(in.readLine());
@@ -52,23 +52,22 @@ public class Main_2112_보호필름 {
     static void dfs(int count) {
         if (count > min || count > K) return;
 
-        if (check()) {
+        if (check()) {  
+            System.out.println(count);
             min = Math.min(count, min);
             return;
         }
         
         for (int i = 0; i < D; i++) {
-            int[] row = new int[W];
+            int[] oldRow = new int[W];
             for (int j = 0; j < W; j++) {
-                row[j] = board[i][j];
+                oldRow[j] = board[i][j];
             }
-            
+             
             // 현재 row를 모두 A로 변경 후 검사
             Arrays.fill(board[i], 0);
             dfs(count + 1);
-            
-            board[i] = row;
-            
+
             // 현재 row를 모두 B로 변경 후 검사
             Arrays.fill(board[i], 1);
             dfs(count + 1);
