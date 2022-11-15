@@ -35,8 +35,8 @@ public class Main_9465_스티커 {
             }
             
             for (int i = 2; i < N; i++) {
-                dt[0][i] = Math.max(dt[1][i - 1], Math.max(dt[0][i - 2], dt[1][i - 2])) + board[0][i];
-                dt[1][i] = Math.max(dt[0][i - 1], Math.max(dt[0][i - 2], dt[1][i - 2])) + board[1][i];
+                dt[0][i] = Math.max(dt[1][i - 1], dt[1][i - 2]) + board[0][i];
+                dt[1][i] = Math.max(dt[0][i - 1], dt[0][i - 2]) + board[1][i];
             }
             
             sb.append(Math.max(dt[0][N - 1], dt[1][N - 1])).append("\n");
