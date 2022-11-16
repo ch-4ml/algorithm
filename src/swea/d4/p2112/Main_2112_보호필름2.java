@@ -8,10 +8,10 @@ import java.io.OutputStreamWriter;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class Main_2112_보호필름 {
+public class Main_2112_보호필름2 {
 
     static int D, W, K, min, r;
-    static int[][] film;
+    static int[][] film, tmpFilm;
 
     public static void main(String[] args) throws NumberFormatException, IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -25,26 +25,19 @@ public class Main_2112_보호필름 {
             W = Integer.parseInt(st.nextToken());
             K = Integer.parseInt(st.nextToken());
             r = 0;
-            min = Integer.MAX_VALUE;
+            min = K;
             film = new int[D][W];
+            tmpFilm = new int[D][W];
             for (int i = 0; i < D; i++) {
                 st = new StringTokenizer(in.readLine());
                 for (int j = 0; j < W; j++) {
                     film[i][j] = Integer.parseInt(st.nextToken());
+                    tmpFilm[i][j] = film[i][j];
                 }
             }
-
-            if (check())
-                min = 0;
-            else {
-                for (int i = 1; i <= D; i++) {
-                    r = i;
-                    combination(new int[i], 0, 0);
-                    if (min < Integer.MAX_VALUE)
-                        break;
-                }
-            }
-
+            
+            if (K == 1) min = 0; // 효율
+            else inject(0, 0);
             sb.append("#").append(t).append(" ").append(min).append("\n");
         }
         
@@ -53,57 +46,36 @@ public class Main_2112_보호필름 {
         out.close();
     }
 
-    static void combination(int[] comb, int idx, int start) {
-        if (min < Integer.MAX_VALUE)
-            return;
-        if (idx == r) {
-            
-            int[][] old = new int[r][W];
-            for (int i = 0; i < r; i++) {
-                for (int j = 0; j < W; j++) {
-                    old[i][j] = film[comb[i]][j];
-                }
-            }
-            
-            for (int i = 0; i < 1 << r; i++) {
-                for (int j = 0; j < r; j++) {
-                    inject(comb[j], (i & 1 << j) > 0 ? 1 : 0);
-                }
-                
-                if (check()) {
-                    min = r;
-                    return;
-                }
-            }
-            
-            for (int i = 0; i < r; i++) {
-                revert(comb[i], old[i]);
-            }
-            
+    static void inject(int row, int cnt) {
+        if (cnt >= min) return;
+        if (check()) {
+            min = Math.min(min, cnt);
             return;
         }
-
-        for (int i = start; i < D; i++) {
-            comb[idx] = i;
-            combination(comb, idx + 1, i + 1);
-        }
-    }
-
-    static void inject(int row, int medicine) {
+        if (row == D) return;
+        
+        // 약품 투입 하지 않고 다음 row 검사
+        inject(row + 1, cnt);
+        
+        // A 약품 투입 후 다음 row 검사
+        Arrays.fill(tmpFilm[row], 0);
+        inject(row + 1, cnt + 1);
+        
+        // B 약품 투입 후 다음 row 검사
+        Arrays.fill(tmpFilm[row], 1);
+        inject(row + 1, cnt + 1);
+        
+        // 원래대로 되돌리기
         for (int i = 0; i < W; i++) {
-            film[row][i] = medicine;
+            tmpFilm[row][i] = film[row][i];
         }
-    }
-
-    static void revert(int row, int[] oldRow) {
-        film[row] = oldRow;
     }
 
     static boolean check() {
         col: for (int i = 0; i < W; i++) {
             int k = 1;
             for (int j = 1; j < D; j++) {
-                k = film[j - 1][i] == film[j][i] ? k + 1 : 1;
+                k = tmpFilm[j - 1][i] == tmpFilm[j][i] ? k + 1 : 1;
                 if (k >= K)
                     continue col;
             }
