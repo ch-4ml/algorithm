@@ -1,5 +1,7 @@
 # [Silver IV] 제로 - 10773 
 
+10773
+
 [문제 링크](https://www.acmicpc.net/problem/10773) 
 
 ### 성능 요약
