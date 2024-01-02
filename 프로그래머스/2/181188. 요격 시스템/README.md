@@ -1,6 +1,6 @@
 # [level 2] 요격 시스템 - 181188 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181188#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/181188?language=javascript#) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 1월 2일 14:54:0
+2024년 1월 2일 14:54:45
 
 ### 문제 설명
 
